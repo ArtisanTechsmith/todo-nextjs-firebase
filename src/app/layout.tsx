@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import {AppBar, BottomNavigation, Toolbar} from '@mui/material'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  Restore as RestoreIcon,
+  Favorite as FavoriteIcon,
+  LocationOn as LocationOnIcon
+} from '@mui/icons-material';
+import AppThemeProvider from "@/core/providers/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +35,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AppThemeProvider>
+          <AppRouterCacheProvider>
+            <AppBar position="static">
+              <Toolbar>
+                <div>AppBar - Toolbar</div>
+              </Toolbar>
+            </AppBar>
+            {children}
+            <BottomNavigation />
+          </AppRouterCacheProvider>
+        </AppThemeProvider>
       </body>
     </html>
   );
