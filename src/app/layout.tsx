@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import {AppBar, Toolbar} from '@mui/material'
-import AppBottomNavigation from '@/core/layout/AppBottomNavigation'
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  Restore as RestoreIcon,
-  Favorite as FavoriteIcon,
-  LocationOn as LocationOnIcon
-} from '@mui/icons-material';
+import type { Metadata } from "next";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { AppBar, Toolbar } from "@mui/material";
+import AppBottomNavigation from "@/core/layout/AppBottomNavigation";
+import { Geist, Geist_Mono } from "next/font/google";
 import AppThemeProvider from "@/core/providers/ThemeProvider";
 
 const geistSans = Geist({
