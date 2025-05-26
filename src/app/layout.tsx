@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import {AppBar, BottomNavigation, Toolbar} from '@mui/material'
+import {AppBar, Toolbar} from '@mui/material'
+import AppBottomNavigation from '@/core/layout/AppBottomNavigation'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {
@@ -43,7 +44,7 @@ export default function RootLayout({
               </Toolbar>
             </AppBar>
             {children}
-            <BottomNavigation />
+            <AppBottomNavigation />
           </AppRouterCacheProvider>
         </AppThemeProvider>
       </body>
