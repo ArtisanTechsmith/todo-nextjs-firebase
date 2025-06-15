@@ -1,39 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Fade } from "@mui/material";
-import Dashboard from "@/app/dashboard/page";
-import Search from "@/app/search/page";
-import Account from "@/app/account/page";
-import AddTodo from "@/app/add-todo/page";
-type TabsMap = {
-  [key: string]: {
-    index: number;
-    content: React.ReactNode;
-  };
-};
+import { routesMapByPath as tabsMap } from "@/core/navigation/routes";
 
 interface Props {
   page?: string;
 }
 const ClientSideMobileNavigation = (props: Props) => {
-  const tabsMap: TabsMap = {
-    dashboard: {
-      index: 0,
-      content: <Dashboard />,
-    },
-    search: {
-      index: 1,
-      content: <Search />,
-    },
-    account: {
-      index: 2,
-      content: <Account />,
-    },
-    "add-todo": {
-      index: 3,
-      content: <AddTodo />,
-    },
-  };
   const [tab, setTab] = useState<number>(null!);
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { AppBar, Box, Toolbar } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppThemeProvider from "@/core/providers/ThemeProvider";
-import ClientSideLayout from "@/app/ClientSideLayout";
+import ClientSideLayout from "@/core/layout/ClientSideLayout";
 
 const spoofMobile = true; // For testing
 

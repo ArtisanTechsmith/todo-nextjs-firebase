@@ -2,12 +2,7 @@
 import styles from "./styles-AppBottomNavigation.module.scss";
 import React from "react";
 import { useRouter } from "next/navigation";
-import {
-  Folder as HomeIcon,
-  Search as SearchIcon,
-  AccountCircleOutlined as AccountIcon,
-  AddCircleOutline as AddIcon,
-} from "@mui/icons-material";
+import { routes } from "@/core/navigation/routes";
 import { BottomNavigation, BottomNavigationAction, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -24,13 +19,6 @@ const AppBottomNavigation = (props: Props) => {
   const router = useRouter();
 
   const [value, setValue] = React.useState<number>(0);
-
-  const navigationItems: NavigationItem[] = [
-    { label: "Home", icon: <HomeIcon />, goTo: "dashboard" },
-    { label: "Search", icon: <SearchIcon />, goTo: "search" },
-    { label: "Page", icon: <AccountIcon />, goTo: "account" },
-    { label: "Add", icon: <AddIcon />, goTo: "add-todo" },
-  ];
 
   function goTo(goTo: string) {
     router.push(goTo);
@@ -52,7 +40,7 @@ const AppBottomNavigation = (props: Props) => {
         value={value}
         onChange={(e, v) => setValue(v)}
       >
-        {navigationItems.map((item, index) => (
+        {routes.map((item, index) => (
           <BottomNavigationAction
             key={index}
             className={styles.AppBottomNavigationItem}
@@ -73,7 +61,7 @@ const AppBottomNavigation = (props: Props) => {
                 color={theme.palette.primary.contrastText}
                 bgcolor={value === index ? theme.palette.primary.light : ""}
                 onClick={() => {
-                  goTo(item.goTo);
+                  goTo(item.path);
                 }}
               >
                 {item.icon}

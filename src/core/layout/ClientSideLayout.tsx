@@ -1,13 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { dashboard } from "@/core/navigation/routes";
 import ClientSideMobileNavigation from "@/core/layout/ClientSideMobileNavigation";
-import { Fade } from "@mui/material";
-import { Box } from "@mui/system";
 import AppBottomNavigation from "@/core/layout/AppBottomNavigation";
 
 interface Props {}
 const ClientSideLayout = (props: Props, children?: React.ReactNode | React.ReactNode[]) => {
-  const [page, setPage] = useState<string>(null!);
+  const [page, setPage] = useState<string>(dashboard.path);
   return (
     <>
       {/* Handle content-rendering client-side and in-sync with `AppBottomNavigation` on mobile. Renders application */}
