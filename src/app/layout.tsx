@@ -1,10 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { isMobile } from "react-device-detect";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { AppBar, Toolbar } from "@mui/material";
-import AppBottomNavigation from "@/core/layout/AppBottomNavigation";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppThemeProvider from "@/core/providers/ThemeProvider";
+import ClientSideLayout from "@/core/layout/ClientSideLayout";
+
+const spoofMobile = true; // For testing
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppThemeProvider>
           <AppRouterCacheProvider>
             <AppBar position="static">
@@ -38,8 +39,13 @@ export default function RootLayout({
                 <div>AppBar - Toolbar</div>
               </Toolbar>
             </AppBar>
-            {children}
-            <AppBottomNavigation />
+            {/*
+            Render the application as a Single-Page Application (SPA) if a mobile device is detected
+            via user-agent sniffing. See more details within `ClientSideLayout` component
+
+            Otherwise, handle navigation using built-in NextJS router as standard Multi-Page web application
+            */}
+            {isMobile || spoofMobile ? <ClientSideLayout>{children}</ClientSideLayout> : <Box>{children}</Box>}
           </AppRouterCacheProvider>
         </AppThemeProvider>
       </body>

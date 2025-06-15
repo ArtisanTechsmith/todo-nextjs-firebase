@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import DashboardAccordion, { CategoriesMap, CategoryTasksMap } from "@/app/dashboard/DashboardAccordion";
 import Task from "@/api/Task";
 import Category from "@/api/Category";
-import dayjs from "dayjs";
 import { Box, CircularProgress, circularProgressClasses, useTheme } from "@mui/material";
 
 interface Props {}
