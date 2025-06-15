@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { AppBar, Toolbar } from "@mui/material";
-import AppBottomNavigation from "@/core/layout/AppBottomNavigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppThemeProvider from "@/core/providers/ThemeProvider";
+import ClientSideLayout from "@/app/ClientSideLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppThemeProvider>
           <AppRouterCacheProvider>
             <AppBar position="static">
@@ -38,8 +36,7 @@ export default function RootLayout({
                 <div>AppBar - Toolbar</div>
               </Toolbar>
             </AppBar>
-            {children}
-            <AppBottomNavigation />
+            <ClientSideLayout>{children}</ClientSideLayout>
           </AppRouterCacheProvider>
         </AppThemeProvider>
       </body>
