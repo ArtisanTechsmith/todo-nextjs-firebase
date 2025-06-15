@@ -4,12 +4,12 @@ import DashboardAccordion, { CategoriesMap, CategoryTasksMap } from "@/app/dashb
 import Task from "@/api/Task";
 import Category from "@/api/Category";
 import dayjs from "dayjs";
+import { Box, CircularProgress, circularProgressClasses, useTheme } from "@mui/material";
 
 interface Props {}
 const Dashboard = (props: Props) => {
+  const theme = useTheme();
   const [loading, setLoading] = useState(true);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
 
   const [categoriesMap, setCategoriesMap] = useState<CategoriesMap>({});
   const [categoryTasksMap, setCategoryTasksMap] = useState<CategoryTasksMap>({});
@@ -20,7 +20,7 @@ const Dashboard = (props: Props) => {
 
   async function fetchScreenData() {
     setLoading(true);
-    let categories = await fetchCategories();
+    let categories = await Category.fetchCategories();
     // Build a hash-map containing categories by categoryId for quick references
     setCategoriesMap(
       categories.reduce((acc: CategoriesMap, cat) => {
@@ -29,7 +29,7 @@ const Dashboard = (props: Props) => {
       }, {}),
     );
 
-    let tasks = await fetchTasks(Object.keys(categoriesMap).map((r) => parseInt(r)));
+    let tasks = await Task.fetchTasks(Object.keys(categoriesMap).map((r) => parseInt(r)));
     // Build a multi-map data structure containing multiple tasks per categoryId
     setCategoryTasksMap(
       tasks.reduce((acc: CategoryTasksMap, task) => {
@@ -41,59 +41,26 @@ const Dashboard = (props: Props) => {
 
     setLoading(false);
   }
-  async function fetchCategories(): Promise<Category[]> {
-    // Return some temporary sample data
-    return [
-      {
-        id: 1,
-        title: "Category 1",
-      },
-      {
-        id: 2,
-        title: "Category 2",
-      },
-    ];
-  }
-  async function fetchTasks(categoryIds: number[]): Promise<Task[]> {
-    // Return some temporary sample data
-    return [
-      {
-        id: 1,
-        title: "Task 1",
-        description: "Task 1 description",
-        categoryId: 1,
-        dueDate: dayjs().add(-2, "day").add(-30, "minute").toDate(),
-      },
-      {
-        id: 2,
-        title: "Task 2",
-        description: "Task 2 description",
-        categoryId: 1,
-        dueDate: dayjs().add(4, "day").add(30, "minute").toDate(),
-      },
-      {
-        id: 3,
-        title: "Task 3",
-        description: "Task 3 description",
-        categoryId: 2,
-        dueDate: dayjs().add(7, "day").add(30, "minute").toDate(),
-      },
-      {
-        id: 4,
-        title: "Task 4",
-        description: "Task 4 description",
-        categoryId: 2,
-        dueDate: dayjs().add(6, "day").add(30, "minute").toDate(),
-      },
-    ];
-  }
 
   return (
     <>
-      <DashboardAccordion
-        categoriesMap={categoriesMap}
-        categoryTasksMap={categoryTasksMap}
-      />
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 2, marginBottom: 2 }}>
+          <CircularProgress
+            sx={(theme) => ({
+              color: theme.palette.primary.contrastText,
+              [`& .${circularProgressClasses.circle}`]: {
+                strokeLinecap: "round",
+              },
+            })}
+          />
+        </Box>
+      ) : (
+        <DashboardAccordion
+          categoriesMap={categoriesMap}
+          categoryTasksMap={categoryTasksMap}
+        />
+      )}
     </>
   );
 };
