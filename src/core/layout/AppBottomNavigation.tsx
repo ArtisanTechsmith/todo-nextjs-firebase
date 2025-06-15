@@ -60,13 +60,13 @@ const AppBottomNavigation = (props: Props) => {
                 component="div"
                 color={theme.palette.primary.contrastText}
                 bgcolor={value === index ? theme.palette.primary.light : ""}
-                onClick={() => {
-                  goTo(item.path);
-                }}
               >
                 {item.icon}
               </Box>
             }
+            onClick={() => {
+              goTo(item.path);
+            }}
           />
         ))}
       </BottomNavigation>
