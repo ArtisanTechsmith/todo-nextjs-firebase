@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Card, Checkbox, Typography, useTheme } from "@mui/material";
 import Task from "@/api/Task";
+import dayjs from "dayjs";
 import { borderRadius } from "@mui/system";
 
 interface Props {
@@ -11,6 +12,13 @@ interface Props {
 const TaskCard = (props: Props) => {
   const theme = useTheme();
 
+  let dueDiff = dayjs(props.task.dueDate ?? dayjs(Date.parse("99999-12-31"))).diff(dayjs(), "days");
+  function getDueDiffText(diff: number): string {
+    if (diff < 0) return `Due ${Math.abs(diff)} days ago`;
+    if (diff > 0) return `Due in ${diff} days`;
+    return "Due today";
+  }
+
   return (
     <>
       <Card
@@ -19,8 +27,22 @@ const TaskCard = (props: Props) => {
           borderRadius: 0,
           display: "flex",
           alignItems: "center",
+          position: "relative",
         }}
       >
+        {dueDiff <= 7 ? (
+          <Box sx={{ position: "absolute", top: 8, right: 16 }}>
+            <Typography
+              variant="caption"
+              fontWeight="500"
+              color="#49454F"
+            >
+              {getDueDiffText(dueDiff)}
+            </Typography>
+          </Box>
+        ) : (
+          <></>
+        )}
         <Box sx={{ width: "fit-content" }}>
           <Checkbox
             disableRipple

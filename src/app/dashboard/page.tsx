@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import DashboardAccordion, { CategoriesMap, CategoryTasksMap } from "@/app/dashboard/DashboardAccordion";
 import Task from "@/api/Task";
 import Category from "@/api/Category";
+import dayjs from "dayjs";
 
 interface Props {}
 const Dashboard = (props: Props) => {
@@ -61,24 +62,28 @@ const Dashboard = (props: Props) => {
         title: "Task 1",
         description: "Task 1 description",
         categoryId: 1,
+        dueDate: dayjs().add(-2, "day").add(-30, "minute").toDate(),
       },
       {
         id: 2,
         title: "Task 2",
         description: "Task 2 description",
         categoryId: 1,
+        dueDate: dayjs().add(4, "day").add(30, "minute").toDate(),
       },
       {
         id: 3,
         title: "Task 3",
         description: "Task 3 description",
         categoryId: 2,
+        dueDate: dayjs().add(7, "day").add(30, "minute").toDate(),
       },
       {
         id: 4,
         title: "Task 4",
         description: "Task 4 description",
         categoryId: 2,
+        dueDate: dayjs().add(6, "day").add(30, "minute").toDate(),
       },
     ];
   }
