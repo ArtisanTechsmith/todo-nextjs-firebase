@@ -1,5 +1,5 @@
 "use client";
-import React, { Children, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -12,6 +12,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#625b71",
+      light: "#ece6f0",
     },
     background: {
       default: "#ffffff",

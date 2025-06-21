@@ -4,6 +4,7 @@ import DashboardAccordion, { CategoriesMap, CategoryTasksMap } from "@/app/dashb
 import Task from "@/api/Task";
 import Category from "@/api/Category";
 import { Box, CircularProgress, circularProgressClasses, useTheme } from "@mui/material";
+import LoadingCircle from "@/core/components/LoadingCircle";
 
 interface Props {}
 const Dashboard = (props: Props) => {
@@ -45,14 +46,7 @@ const Dashboard = (props: Props) => {
     <>
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 2, marginBottom: 2 }}>
-          <CircularProgress
-            sx={(theme) => ({
-              color: theme.palette.primary.contrastText,
-              [`& .${circularProgressClasses.circle}`]: {
-                strokeLinecap: "round",
-              },
-            })}
-          />
+          <LoadingCircle />
         </Box>
       ) : (
         <DashboardAccordion
