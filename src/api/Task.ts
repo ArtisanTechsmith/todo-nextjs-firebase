@@ -15,6 +15,18 @@ export default class Task {
     this.dueDate = dueDate;
   }
 
+  static async searchTasks(query: string, limit: number): Promise<Task[]> {
+    const tasks = await this.fetchTasks([]);
+    return tasks
+      .filter((t) => {
+        return (
+          t.title.toLowerCase().includes(query.toLowerCase()) ||
+          t.description.toLowerCase().includes(query.toLowerCase())
+        );
+      })
+      .slice(0, limit);
+  }
+
   static async fetchTasks(categoryIds: number[]): Promise<Task[]> {
     await new Promise((res) => {
       setTimeout(() => {

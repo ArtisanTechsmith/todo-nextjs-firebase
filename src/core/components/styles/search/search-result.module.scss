@@ -1,0 +1,18 @@
+@import "./shared";
+
+.searchResultWrapper {
+  height: $search-result-height;
+  max-height: $search-result-height;
+
+  cursor: pointer;
+  border-radius: 0 !important;
+  width: 100%;
+  padding: 20px 12px;
+  &:hover, &:focus {
+    filter: brightness(98%);
+  }
+  &>div>*:last-child {
+    padding-left: 16px;
+    line-height: 20px;
+  }
+}

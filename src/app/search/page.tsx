@@ -21,7 +21,7 @@ const Search = (props: Props) => {
 
   async function fetchScreenData() {
     setLoading(true);
-    setSearchHistory(await SearchHistory.fetchSearchHistory());
+    setSearchHistory(await SearchHistory.fetchSearchHistory(""));
     setLoading(false);
   }
 
@@ -44,12 +44,7 @@ const Search = (props: Props) => {
             <Accordion
               key={`search-history-${i}`}
               summary="Recent Searches"
-              details={item.results.map((task, j) => (
-                <TaskCard
-                  key={`search-history-task-${j}`}
-                  task={task}
-                />
-              ))}
+              details={<TaskCard task={item.task} />}
             />
           ))
         )}

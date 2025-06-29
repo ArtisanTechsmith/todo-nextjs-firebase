@@ -1,0 +1,99 @@
+@import "./shared";
+
+.searchInputWrapper {
+  &:has(.searchInput:focus-within),
+  &:not(:has(input:placeholder-shown)) {
+    & .searchInputExpandedWrapper {
+      max-height: calc($search-result-height * 3);
+    }
+    & .searchInputExpandedDivider hr {
+      height: auto;
+      max-width: 480px;
+      display: block;
+    }
+    & .searchInputExpanded {
+      animation: slide-y-down;
+      animation-fill-mode: forwards;
+      animation-duration: 0.2s;
+      animation-iteration-count: 1;
+      animation-delay: 0.3s;
+      transform: translateY(-100%);
+      z-index: 1;
+      display: block;
+    }
+  }
+  &>.searchInput {
+    width: 100%;
+    transition: all 0.1s ease;
+    &:focus-within,
+    &:not(:has(input:placeholder-shown)) {
+      transition-delay: 0.1s;
+      transition-duration: 0.2s;
+      border-bottom-left-radius: 0.1px;
+      border-bottom-right-radius: 0.1px;
+      z-index: 2;
+    }
+    & input {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 24px;
+    }
+  }
+  & .searchInputExpandedDivider {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    & hr {
+      border-radius: 0;
+      width: 100%;
+      max-width: 0;
+      transition: max-width 0.2s cubic-bezier(.5,.84,.76,.35);
+    }
+  }
+  & .searchInputExpandedWrapper {
+    transition: all 0.2s ease-in;
+    max-height: 0;
+    overflow: hidden;
+    &:has(.searchLoadingWrapper) {
+      max-height: $search-result-height !important;
+    }
+    &:has(.searchNoResults) {
+      max-height: $search-result-height !important;
+    }
+  }
+  & .searchLoadingWrapper {
+    height: $search-result-height;
+    max-height: $search-result-height;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & .searchNoResults {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $search-result-height;
+  }
+  & .searchInputExpanded {
+    display: none;
+  }
+}
+
+// Animations for component
+@keyframes slide-y-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-y-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}

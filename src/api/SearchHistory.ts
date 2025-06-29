@@ -2,27 +2,23 @@ import Task from "@/api/Task";
 
 export default class SearchHistory {
   readonly id?: number;
-  readonly text?: string;
-  readonly results: Task[] = [];
+  readonly task!: Task;
 
   constructor(text?: string) {
     this.id = undefined;
-    this.text = text;
   }
 
-  static async fetchSearchHistory(): Promise<SearchHistory[]> {
+  static async fetchSearchHistory(search: string): Promise<SearchHistory[]> {
     // Simulate an internet transaction
     await new Promise((res) => {
       setTimeout(() => res(1), 1000);
     });
+    let t = await Task.searchTasks(search, 3);
 
     // Return some temporary sample data
-    return [
-      {
-        id: 1,
-        text: "Search Text",
-        results: await Task.fetchTasks([1, 2]),
-      },
-    ];
+    return t.reduce((acc: SearchHistory[], r, index) => {
+      acc.push({ id: index + 1, task: r });
+      return acc;
+    }, []);
   }
 }
